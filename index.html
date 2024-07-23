@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="styles/style.css"/>
+  <title>Hello, World!</title>
+  <style>
+  *{
+    margin:0;
+    padding:0;
+  }
+  body{
+   background-color:orange;
+   text-align:center;
+  }
+  .container{
+    height:70vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    
+  }
+  .game{
+    height:60vmin;
+    width:60vmin;
+    display:flex;
+    flex-wrap:wrap;
+  }
+  .box{
+    height:18vmin;
+    width:18vmin;
+    margin:1vmin;
+    border-radius:1rem;
+    border:none;
+    font-size:11vmin;
+    color:#093A3E;
+    background-color:green;
+  }
+  #reset{
+    font-size:1.5rem;
+    background-color:black;
+    padding:1rem;
+    color:white;
+    border:none;
+    border-redius:1rem;
+    box-shadow:3px 3px 3px black,-3px -3px 3px white;
+  }
+  .winner{
+    text-align:center;
+    color:blue;
+    font-size:2rem;
+  }
+  <style></style>
+</head>
+<body>
+  <h1>Tic-Tac-Toe</h1>
+  <div class="container">
+    
+      <div class="game">
+      <button class="box"></button>
+      <button class="box"></button>
+      <button class="box"></button>   
+      <button class="box"></button>
+      <button class="box"></button>
+      <button class="box"></button>
+      <button class="box"></button>
+      <button class="box"></button>
+      <button class="box"></button>      
+  </div>
+</div>
+  <button id="reset">New Game</button>
+  <script>
+  let boxes=document.querySelectorAll(".box");
+  let reset=document.querySelector("#reset");
+  let will=document.querySelector("h1");
+  let turn="p1";
+  let win=[
+  [0,1,2],
+  [3,4,5],
+  [6,7,8],
+  [0,3,6],
+  [1,4,7],
+  [2,5,8],
+  [0,4,8],
+  [2,4,6],
+  ];
+  let co=0;
+  boxes.forEach((x,y)=>{
+    x.addEventListener("click",()=>{
+      if(turn==="p1"){
+        x.innerText="X";
+        turn="p2";
+        console.log("Box",y,"was clicked");
+      }
+      else{
+        x.innerText="O";
+        turn="p1";
+        console.log("Box",y,"was clicked");
+      }
+      x.disabled=true;
+      call();
+    });
+  });
+  let call=()=>{
+    for(let pat of win){
+      let a=boxes[pat[0]].innerText;
+      let b=boxes[pat[1]].innerText;
+      let c=boxes[pat[2]].innerText;
+      if(a!="" && b!="" && c!=""){
+        if(a===b && b===c){
+          let str="Congratulations winner is "+a;
+          console.log(str);
+          declare(str);
+          disable();
+        }
+      }
+    }
+  }
+  console.log(co);
+  let disable=()=>{
+    for(box of boxes){
+      box.disabled=true;
+    }
+  }
+  let cre=document.createElement("div");
+  if(co==9){
+    cre.innerText="Please click new game";
+    cre.classList.add("winner");
+    will.before(cre);
+  }
+  let declare=(st)=>{
+    cre.innerText=st;
+    cre.classList.add("winner");
+    will.before(cre);
+  }
+  let res=()=>{
+    for(box of boxes){
+      cre.innerText="";
+      box.innerText="";
+      box.disabled=false;
+    }
+  }
+  reset.addEventListener("click",res);
+  </script>
+</body>
+</html>
